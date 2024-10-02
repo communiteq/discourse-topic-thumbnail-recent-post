@@ -1,3 +1,4 @@
 plugins:
   topic_thumbnail_recent_post_enabled:
     default: false
+    client: true

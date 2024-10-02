@@ -1,0 +1,6 @@
+en:
+  js:
+    topic_thumbnail_recent_post:
+      title: "Topic Thumbnail Recent Post"
+      enable_thumbnail_recent_post: "Set topic thumbnail to most recently created/updated post by topic starter"
+

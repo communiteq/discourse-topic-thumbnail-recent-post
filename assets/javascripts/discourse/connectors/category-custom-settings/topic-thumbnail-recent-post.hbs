@@ -1,0 +1,14 @@
+{{#if siteSettings.topic_thumbnail_recent_post_enabled}}
+  <h3>{{i18n "topic_thumbnail_recent_post.title"}}</h3>
+  <section class="field">
+    <div class="topic_thumbnail_recent_post">
+      <label class="checkbox-label">
+        {{input
+          type="checkbox"
+          checked=category.custom_fields.enable_thumbnail_recent_post
+        }}
+        {{i18n "topic_thumbnail_recent_post.enable_thumbnail_recent_post"}}
+      </label>
+    </div>
+  </section>
+{{/if}}
