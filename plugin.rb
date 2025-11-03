@@ -15,6 +15,13 @@ after_initialize do
   DiscourseEvent.on(:post_process_cooked) do |doc, post|
     if SiteSetting.topic_thumbnail_recent_post_enabled?
       if post.topic && post.topic&.user&.id == post&.user&.id && post.image_upload_id && post.topic.category && post.topic.category.custom_fields[:enable_thumbnail_recent_post]
+        upload = post.image_upload
+
+        # Skip GIF files - they are excluded from being used as topic thumbnails
+        if upload && (upload.content_type == "image/gif" || upload.extension&.downcase == "gif")
+          next
+        end
+
         post.topic.image_upload_id = post.image_upload_id
         post.topic.save!
       end
