@@ -18,7 +18,8 @@ after_initialize do
         upload = post.image_upload
 
         # Skip GIF files - they are excluded from being used as topic thumbnails
-        if upload && (upload.content_type == "image/gif" || upload.extension&.downcase == "gif")
+        # Upload does not expose a `content_type` attribute; use `extension` (and fallback to filename)
+        if upload && (upload.extension&.downcase == "gif" || upload.original_filename&.downcase&.end_with?(".gif"))
           next
         end
 

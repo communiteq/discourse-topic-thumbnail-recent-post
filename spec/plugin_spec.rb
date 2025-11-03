@@ -17,9 +17,8 @@ describe "discourse-topic-thumbnail-recent-post" do
   
   describe "GIF exclusion" do
     let(:gif_upload) do
-      Fabricate(:upload, 
+      Fabricate(:upload,
         user: user,
-        content_type: "image/gif",
         extension: "gif",
         width: 100,
         height: 100
@@ -29,7 +28,6 @@ describe "discourse-topic-thumbnail-recent-post" do
     let(:jpg_upload) do
       Fabricate(:upload,
         user: user,
-        content_type: "image/jpeg",
         extension: "jpg",
         width: 100,
         height: 100
@@ -39,7 +37,6 @@ describe "discourse-topic-thumbnail-recent-post" do
     let(:png_upload) do
       Fabricate(:upload,
         user: user,
-        content_type: "image/png",
         extension: "png",
         width: 100,
         height: 100
@@ -88,15 +85,15 @@ describe "discourse-topic-thumbnail-recent-post" do
       expect(topic.reload.image_upload_id).to be_nil
     end
     
-    it "excludes GIF based on content_type even if extension is missing" do
+    it "excludes GIF based on filename even if extension is missing" do
       gif_no_ext = Fabricate(:upload,
         user: user,
-        content_type: "image/gif",
+        original_filename: "image.gif",
         extension: nil,
         width: 100,
         height: 100
       )
-      
+
       topic.image_upload_id = jpg_upload.id
       topic.save!
       
@@ -111,12 +108,11 @@ describe "discourse-topic-thumbnail-recent-post" do
     it "excludes GIF based on extension even if content_type is wrong" do
       gif_wrong_type = Fabricate(:upload,
         user: user,
-        content_type: "image/jpeg", # Wrong content type
-        extension: "gif", # But extension is gif
+        extension: "gif", # extension is gif
         width: 100,
         height: 100
       )
-      
+
       topic.image_upload_id = jpg_upload.id
       topic.save!
       
@@ -133,7 +129,6 @@ describe "discourse-topic-thumbnail-recent-post" do
     let(:jpg_upload) do
       Fabricate(:upload,
         user: user,
-        content_type: "image/jpeg",
         extension: "jpg",
         width: 100,
         height: 100
